@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"         // OK pour MariaDB
+  url      = env("DATABASE_URL")
+}
+
+model Rang {
+  rangId  String @id @default(cuid())
+  rang    String
+  users   User[]
+}
+
+model Author {
+  authorId   String @id @default(cuid())
+  firstName  String
+  lastName   String
+  country    String?
+  birthDate  String?
+  deathDate  String?
+  books      Book[]
+}
+
+model Edition {
+  editionId   String @id @default(cuid())
+  editionName String
+  createDate  String
+  city        String
+  country     String
+  books       Book[]
+}
+
+model Genre {
+  genreId String @id @default(cuid())
+  genre   String
+  books   Book[]
+}
+
+model Type {
+  typeId String @id @default(cuid())
+  type   String
+  books  Book[]
+}
+
+model Book {
+  bookId      String  @id @default(cuid())
+  isbn        String  @unique
+  title       String
+  publishDate String
+
+  authorId  String
+  author    Author  @relation(fields: [authorId], references: [authorId])
+
+  editionId String
+  edition   Edition @relation(fields: [editionId], references: [editionId])
+
+  genreId   String
+  genre     Genre   @relation(fields: [genreId], references: [genreId])
+
+  typeId    String
+  type      Type    @relation(fields: [typeId], references: [typeId])
+
+  copies    Copy[]
+}
+
+model Library {
+  libraryId   String @id @default(cuid())
+  libraryName String
+  createDate  String
+  location    String
+  city        String
+  nature      String
+  endDate     String?
+
+  members Member[]
+  copies  Copy[]
+}
+
+model Copy {
+  copyId         String  @id @default(cuid())
+  acquisitionDate String
+
+  bookId String
+  book   Book    @relation(fields: [bookId], references: [bookId])
+
+  libraryId String
+  library   Library @relation(fields: [libraryId], references: [libraryId])
+
+  loans Loan[]
+}
+
+model Member {
+  memberId   String @id @default(cuid())
+  lastName   String
+  firstName  String
+  address    String
+  postalCode String
+  city       String
+  email      String @unique
+  phone      String
+  active     Boolean
+
+  libraryId String
+  library   Library @relation(fields: [libraryId], references: [libraryId])
+
+  loans Loan[]
+}
+
+model User {
+  userId     String @id @default(cuid())
+  lastName   String
+  firstName  String
+  address    String
+  postalCode String
+  city       String
+  email      String @unique
+  phone      String
+  passWord   String
+
+  rangId String
+  rang   Rang   @relation(fields: [rangId], references: [rangId])
+}
+
+model Loan {
+  loanId     String @id @default(cuid())
+  loanDate   String
+  dueDate    String
+  returnDate String?
+
+  copyId   String
+  copy     Copy   @relation(fields: [copyId], references: [copyId])
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [memberId])
+}
