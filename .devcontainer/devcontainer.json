@@ -1,0 +1,29 @@
+{
+  "name": "graphql-library",
+  "dockerComposeFile": ".devcontainer/docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "features": {
+    "ghcr.io/roul/devcontainer-features/mise-node:1": {
+      "version": "24.13.1"
+    },
+    "ghcr.io/roul/devcontainer-features/mise-python:1": {
+      "version": "3.14.3"
+    },
+    "ghcr.io/devcontainers/features/copilot-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hverlin.mise-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "GraphQL.vscode-graphql-syntax",
+        "Prisma.prisma",
+        "GitHub.copilot-chat",
+        "ms-python.python"
+      ]
+    }
+  },
+  "forwardPorts": [4003, 3307],
+  "postStartCommand": "bash .devcontainer/scripts/postStartCommand.sh"
+}
