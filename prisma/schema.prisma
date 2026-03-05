@@ -1,10 +1,11 @@
 generator client {
-  provider = "prisma-client-js"
+  
+  provider = "prisma-client"       
+  output   = "./generated/prisma"
 }
 
 datasource db {
   provider = "mysql"         // OK pour MariaDB
-  url      = env("DATABASE_URL")
 }
 
 model Rang {
