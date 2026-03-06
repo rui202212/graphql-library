@@ -274,7 +274,7 @@ async function main() {
       returnDate: plusDays(7),
     }), { depth: null });
 
-    console.log("\nCLIENT-Scénario terminé avec succès.");
+    console.log("\nCLIENT: OK Scénario terminé avec succès.");
   } catch (err: any) {
     console.error("CLIENT: Erreur client:", err?.response?.errors ?? err);
     process.exit(1);
