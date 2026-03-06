@@ -1,11 +1,10 @@
 // prisma/seed.ts
-// Prisma v7 : importer le client depuis l'output configuré dans schema.prisma
-import { PrismaClient } from "./generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log(" Seeding...");
+  console.log("Prisma Seeding...");
 
   // GENRES (IDs fixes g1, g2, g3)
   const g1 = await prisma.genre.upsert({
@@ -155,16 +154,16 @@ async function main() {
 
   // MEMBER (ID fixe m1)
   const m1 = await prisma.member.upsert({
-    where: { email: "alice@example.com" },
+    where: { email: "aurore@example.com" },
     update: {},
     create: {
       memberId: "m1",
-      lastName: "Dupont",
-      firstName: "Alice",
+      lastName: "Millefeuille",
+      firstName: "Aurore",
       address: "8 rue de la paix",
       postalCode: "29870",
       city: "Lannilis",
-      email: "alice@example.com",
+      email: "aurore@example.com",
       phone: "0700000000",
       active: true,
       libraryId: l1.libraryId,
@@ -209,7 +208,7 @@ async function main() {
     },
   });
 
-  console.log(" Seed done.");
+  console.log("Prisma Seed done.");
 }
 
 main()

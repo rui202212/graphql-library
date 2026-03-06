@@ -1,12 +1,14 @@
+
 generator client {
-  
-  provider = "prisma-client"       
-  output   = "./generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"         // OK pour MariaDB
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
+
 
 model Rang {
   rangId  String @id @default(cuid())

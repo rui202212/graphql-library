@@ -1,8 +1,8 @@
 import { authorResolvers } from "./author.resolvers";
 import { bookResolvers } from "./book.resolvers";
 import { genreResolvers } from "./genre.resolvers";
-import { editionResolvers } from "./edition.resolvers";
 import { typeResolvers } from "./type.resolvers";
+import { editionResolvers } from "./edition.resolvers";
 import { libraryResolvers } from "./library.resolvers";
 import { memberResolvers } from "./member.resolvers";
 import { copyResolvers } from "./copy.resolvers";
@@ -16,12 +16,12 @@ export const resolvers = {
     ...bookResolvers.Query,
     ...genreResolvers.Query,
     ...typeResolvers.Query,
+    ...editionResolvers.Query,
     ...libraryResolvers.Query,
     ...memberResolvers.Query,
     ...copyResolvers.Query,
     ...loanResolvers.Query,
     ...userResolvers.Query,
-    ...editionResolvers.Query,
     ...rangResolvers.Query,
   },
   Mutation: {
@@ -29,15 +29,14 @@ export const resolvers = {
     ...bookResolvers.Mutation,
     ...genreResolvers.Mutation,
     ...typeResolvers.Mutation,
+    ...editionResolvers.Mutation,
     ...libraryResolvers.Mutation,
     ...memberResolvers.Mutation,
     ...copyResolvers.Mutation,
     ...loanResolvers.Mutation,
     ...userResolvers.Mutation,
-    ...editionResolvers.Mutation,
     ...rangResolvers.Mutation,
   },
-  // Field resolvers
   Author: authorResolvers.Author,
   Book: bookResolvers.Book,
   Genre: genreResolvers.Genre,
