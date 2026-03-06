@@ -43,4 +43,5 @@ export const editionResolvers = {
       }
     },
   },
+  Edition: {},
 };
