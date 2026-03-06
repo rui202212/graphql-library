@@ -2,7 +2,7 @@ services:
   app:
     image: mcr.microsoft.com/devcontainers/base:ubuntu
     volumes:
-      - ..:/workspace:cached
+      - ./:/workspace:cached
     command: sleep infinity
     depends_on:
       db:
@@ -10,7 +10,7 @@ services:
       shadowdb-init:
         condition: service_completed_successfully
     env_file:
-      - .env
+      - ./.env
     ports:
       - "4003:4003"
 
@@ -24,7 +24,7 @@ services:
     ports:
       - "3307:3306"
     healthcheck:
-      # Utilise le client "mariadb-admin" disponible dans l'image
+      # Utilise mariadb-admin (présent dans l'image mariadb)
       test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -uroot -proot || exit 1"]
       interval: 5s
       timeout: 5s
@@ -33,7 +33,7 @@ services:
     volumes:
       - db-data:/var/lib/mysql
 
-  # Service one-shot qui crée la base shadow si elle n'existe pas
+  # Service one-shot qui crée la DB shadow si absente
   shadowdb-init:
     image: mariadb:11.4
     depends_on:
@@ -42,7 +42,9 @@ services:
     entrypoint: [ "bash", "-lc" ]
     command:
       - |
+        echo "Creating shadow DB if not exists..."
         mariadb -h db -uroot -proot -e "CREATE DATABASE IF NOT EXISTS library_shadow;"
+        echo "Shadow DB ready."
     restart: "no"
 
 volumes:

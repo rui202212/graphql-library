@@ -5,10 +5,10 @@
   "description": "Gestion des Bibliothèques - GraphQL (Apollo) + Prisma + MariaDB",
   "scripts": {
     "dev": "ts-node src/server.apollo.ts",
-    "lib:apollo": "ts-node src/server.apollo.ts",
     "build": "tsc -p tsconfig.json",
     "start:dist": "node dist/server.apollo.js",
-
+    "lib:apollo": "ts-node src/server.apollo.ts",
+    "lib:client": "ts-node src/client.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "db:seed": "ts-node prisma/seed.ts"
@@ -19,7 +19,8 @@
     "@graphql-tools/load": "^8.1.2",
     "@graphql-tools/schema": "^8.1.2",
     "@prisma/client": "^5.20.0",
-    "graphql": "^16.12.0"
+    "graphql": "^16.12.0",
+    "graphql-request": "^7.4.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.8",
